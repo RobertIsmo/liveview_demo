@@ -21,12 +21,18 @@ defmodule LiveviewDemoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/counters", CounterLive.Index, :index
+    live "/counters/new", CounterLive.Index, :new
+    live "/counters/:id/edit", CounterLive.Index, :edit
+
+    live "/counters/:id", CounterLive.Show, :show
+    live "/counters/:id/show/edit", CounterLive.Show, :edit
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", LiveviewDemoWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", LiveviewDemoWeb do
+    pipe_through :api
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:liveview_demo, :dev_routes) do
